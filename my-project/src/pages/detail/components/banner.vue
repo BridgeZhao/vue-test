@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="banner">
-      <img src="https://img1.qunarzz.com/p/tts9/1811/d8/34305b5503023902.jpg_r_640x420x90_f0a47f76.jpg" class="banner-img">
+      <img src="https://img1.qunarzz.com/p/tts9/1811/d8/34305b5503023902.jpg_r_640x420x90_f0a47f76.jpg" class="banner-img" @click="handleBannerClick">
       <div class="banner-info">
         <div class="banner-title">
           成都出发-跟团游
@@ -12,7 +12,10 @@
         </div>
       </div>
     </div>
-    <common-gallary></common-gallary>
+    <common-gallary
+     :imgs='imgs'
+      v-show='showGallary'
+      @close='handleGallaryClose'></common-gallary>
   </div>
 </template>
 
@@ -20,6 +23,20 @@
 import commonGallary from 'common/gallary/gallary'
 export default {
   name: 'detailBanner',
+  data () {
+    return {
+      showGallary: false,
+      imgs: ['https://img1.qunarzz.com/p/tts8/1811/af/a69e5f481e2cae02.jpg_r_1280x840x90_45623050.jpg', 'https://img1.qunarzz.com/p/tts6/1811/4c/d13fea4a41b0c502.jpg_r_1280x840x90_81e9a69e.jpg']
+    }
+  },
+  methods: {
+    handleBannerClick () {
+      this.showGallary = true
+    },
+    handleGallaryClose () {
+      this.showGallary = false
+    }
+  },
   components: {
     commonGallary
   }

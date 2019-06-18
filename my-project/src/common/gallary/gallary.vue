@@ -1,12 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container" @click="handleGallaryClick">
     <div class="wrapper">
       <swiper :options='swiperOptions'>
-        <swiper-slide>
-          <img class="gallary-img" src="https://img1.qunarzz.com/p/tts8/1811/af/a69e5f481e2cae02.jpg_r_1280x840x90_45623050.jpg">
-        </swiper-slide>
-        <swiper-slide>
-          <img class="gallary-img" src="https://img1.qunarzz.com/p/tts6/1811/4c/d13fea4a41b0c502.jpg_r_1280x840x90_81e9a69e.jpg">
+        <swiper-slide v-for='(item, key) in imgs' :key='key'>
+          <img class="gallary-img" :src="item">
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
@@ -17,6 +14,16 @@
 <script>
 export default {
   name: 'commonGallary',
+  props: {
+    imgs: {
+      type: Array
+    }
+  },
+  methods: {
+    handleGallaryClick () {
+      this.$emit('close')
+    }
+  },
   data () {
     return {
       swiperOptions: {
@@ -25,6 +32,8 @@ export default {
           el: '.swiper-pagination',
           type: 'fraction'
         },
+        observeParents: true,
+        observer: true
         // paginationType: 'fraction' 不兼容
       }
     }
@@ -33,6 +42,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  .container >>> .swiper-container
+    overflow: inherit
   .container
     display: flex
     flex-direction: column
@@ -45,7 +56,6 @@ export default {
     bottom: 0
     background: #000
     .wrapper
-      overflow: hidden
       height: 0
       width:100%
       padding-bottom: 70%
